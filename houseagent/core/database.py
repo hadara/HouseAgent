@@ -18,6 +18,7 @@ class Database():
         type = "sqlite"
 
         self.coordinator = None
+        self._db_location = db_location
 
         # Note: cp_max=1 is required otherwise undefined behaviour could occur when using yield icw subsequent
         # runQuery or runOperation statements
@@ -65,7 +66,7 @@ class Database():
 
             # Before we start manipulating the database schema, first make a backup copy of the database
             try:
-                shutil.copy(db_location, db_location + datetime.datetime.strftime(datetime.datetime.now(), ".%y%m%d-%H%M%S"))
+                shutil.copy(self._db_location, self._db_location + datetime.datetime.strftime(datetime.datetime.now(), ".%y%m%d-%H%M%S"))
             except:
                 self.log.error("Cannot make a backup copy of the database (%s)" % sys.exc_info()[1])
                 return
