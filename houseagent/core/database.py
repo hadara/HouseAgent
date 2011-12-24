@@ -67,7 +67,7 @@ class Database():
             try:
                 shutil.copy(db_location, db_location + datetime.datetime.strftime(datetime.datetime.now(), ".%y%m%d-%H%M%S"))
             except:
-                self.log.error("Cannot make a backup copy of the database (%s)", sys.exc_info()[1])
+                self.log.error("Cannot make a backup copy of the database (%s)" % sys.exc_info()[1])
                 return
 
             if version == '0.0':
