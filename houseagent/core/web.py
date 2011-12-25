@@ -125,8 +125,10 @@ class Web(object):
                     mod = imp.load_module("pages", file, pathname, description)
                     mod.init_pages(root, self.coordinator, self.db)
                     self.log.debug("--> Loaded pages for plugin %s" % dir)
-                except:
+                except ImportError:
                     self.log.warning("--> Warning cannot load pages module for %s, no pages.py file?" % dir)
+                except Exception,obj:
+                    self.log.error("Failed to load pages module for '%s' reason: %s" % (dir, str(obj),))
 
 class Root(Resource):
     '''
